@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private SpriteRenderer mySpriteRender;
     public Animator playerAnim;
+    public ParticleSystem dustParticle;
+    private AudioSource playerAudio;
+    public AudioClip swordSound;
+    public AudioClip jumpSound;
+    
 
     public float fallMultipler = 6.22f;
     public float jumpForce = 11.5f;
@@ -21,6 +26,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         mySpriteRender = GetComponent<SpriteRenderer>();
         playerAnim = GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
         Physics.gravity *= gravityModifier;
     }
     
@@ -38,7 +44,7 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Walk_b", true);
         }
         
-       
+  
     }
 
     void Move()
@@ -46,10 +52,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             this.transform.localScale = playerSize;
+            dustParticle.Play();
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            this.transform.localScale = new Vector3(-3, 3, 3);          
+            this.transform.localScale = new Vector3(-3, 3, 3);
+            dustParticle.Play();
         }
     }
 
@@ -66,6 +74,8 @@ public class PlayerController : MonoBehaviour
                 playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 isOnGround = false;
                 playerAnim.SetTrigger("Jump_trig");
+                playerAudio.PlayOneShot(jumpSound, 1f);
+                dustParticle.Play();
             }
         }
     }
@@ -74,7 +84,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerAnim.SetBool("Attack_b", true);
-            Invoke("AttackBoolFalse", .6f);               
+            playerAudio.PlayOneShot(swordSound, 1f);
+            Invoke("AttackBoolFalse", .6f);     
+            
         }
     }
     void AttackBoolFalse()
@@ -90,4 +102,6 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+
+    
 }

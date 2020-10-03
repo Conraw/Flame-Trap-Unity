@@ -58,19 +58,19 @@ public class DoorController : MonoBehaviour
         if (playerControllerScript.transform.position.x > 29)
         {
             door.position = closedPosition1;
-            doorOne = false;
+            doorOne = false;    
         }
     }
     void OpenDoorTwo()
     {
-        door.position = openedPosition2;
+        this.door.position = openedPosition2;
     }
     void CloseDoorTwo()
     {
         if (playerControllerScript.transform.position.x > 90)
         {
-            door.position = closedPosition2;
-            doorTwo = false;
+            this.door.position = closedPosition2;
+            doorTwo = false;      
         }
     }
 }

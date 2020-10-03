@@ -58,6 +58,11 @@ public class GameManager : MonoBehaviour
         titleScreen.gameObject.SetActive(false);
         instructions.gameObject.SetActive(true);
     }
+    public void InstructionBack()
+    {
+        titleScreen.gameObject.SetActive(true);
+        instructions.gameObject.SetActive(false);
+    }
     
 
 }

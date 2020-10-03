@@ -52,12 +52,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             this.transform.localScale = playerSize;
-            dustParticle.Play();
+            if (isOnGround)
+            {
+                dustParticle.Play();
+            }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             this.transform.localScale = new Vector3(-3, 3, 3);
-            dustParticle.Play();
+            if (isOnGround)
+            {
+                dustParticle.Play();
+            }
         }
     }
 

@@ -9,8 +9,8 @@ public class DetectCollision : MonoBehaviour
     private AudioSource playerAudio;
     public DoorController doorControllerScript;
     public AudioClip shatterSound;
+    public ParticleSystem shatterParticle;
 
-  
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +33,18 @@ public class DetectCollision : MonoBehaviour
             gameManager.GameOver();    
         }
         if (other.tag == "Player" && this.tag == "Coin" && playerControllerScript.playerAnim.GetBool("Attack_b"))
-        {
+        {      
             doorControllerScript.coinsDestroyed++;
+            //this.transform.position//ShatterParticle()
+            //Instantiate(shatterParticle, transform.position, transform.rotation);
             Destroy(gameObject);
             playerAudio.PlayOneShot(shatterSound, 1f);
             Debug.Log("One more down");
         }
     }
 
+    void ShatterParticle()
+    {
+        shatterParticle.Play();
+    }
 }

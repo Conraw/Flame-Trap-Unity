@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    private Spawner spawnerScript;
     public Button restartButton;
     public GameObject titleScreen;
     public GameObject gameOverScreen;

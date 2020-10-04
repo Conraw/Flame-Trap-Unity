@@ -26,6 +26,11 @@ public class DoorController : MonoBehaviour
         if (coinsDestroyed == 4)
         {
             Destroy(GameObject.Find("Wall2"));
-        }                   
+        }
+        if (coinsDestroyed == 5)
+        {
+            Destroy(GameObject.Find("Wall3"));
+        }
+        
     }
 }

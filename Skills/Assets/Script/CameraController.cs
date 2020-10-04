@@ -26,5 +26,13 @@ public class CameraController : MonoBehaviour
         {
             MainCamera.transform.position = new Vector3(56.9f, 2.1f, -12);
         }
+        else if (player.transform.position.x > 90f && player.transform.position.x < 151)
+        {
+            MainCamera.transform.position = new Vector3(119.9f, 2.1f, -12);
+        }
+        else if (player.transform.position.x > 156f && player.transform.position.x < 217.2)
+        {
+            MainCamera.transform.position = new Vector3(187f, 2.1f, -12);
+        }
     }
 }

@@ -36,15 +36,14 @@ public class PlayerController : MonoBehaviour
         Attack();
         Jump();
         Move();
-
+        
         playerAnim.SetBool("Walk_b", false);
         if (horizontalInput != 0)
         {
             transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
             playerAnim.SetBool("Walk_b", true);
         }
-        
-  
+          
     }
 
     void Move()

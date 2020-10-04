@@ -11,6 +11,8 @@ public class DetectCollision : MonoBehaviour
     public AudioClip shatterSound;
     public ParticleSystem shatterParticle;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,22 +31,23 @@ public class DetectCollision : MonoBehaviour
     {
         if (other.tag == "Player" && this.tag == "Fireball")
         {
-            Debug.Log("still been hit");
             gameManager.GameOver();    
         }
         if (other.tag == "Player" && this.tag == "Coin" && playerControllerScript.playerAnim.GetBool("Attack_b"))
-        {      
+        {          
             doorControllerScript.coinsDestroyed++;
-            //this.transform.position//ShatterParticle()
-            //Instantiate(shatterParticle, transform.position, transform.rotation);
+            
+            ShatterParticle();                 
             Destroy(gameObject);
-            playerAudio.PlayOneShot(shatterSound, 1f);
-            Debug.Log("One more down");
+            playerAudio.PlayOneShot(shatterSound, 1f);        
         }
     }
 
     void ShatterParticle()
     {
+        Vector3 spawnPos = this.transform.position;
+        Instantiate(shatterParticle, spawnPos, transform.rotation);
         shatterParticle.Play();
+        Destroy(this);
     }
 }

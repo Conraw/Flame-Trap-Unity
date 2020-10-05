@@ -46,8 +46,11 @@ public class DetectCollision : MonoBehaviour
     void ShatterParticle()
     {
         Vector3 spawnPos = this.transform.position;
-        Instantiate(shatterParticle, spawnPos, transform.rotation);
-        shatterParticle.Play();
-        Destroy(this);
+        ParticleSystem newParticle = Instantiate(shatterParticle, spawnPos, transform.rotation);
+        newParticle.Play();
+     
+        Destroy(newParticle, .5f);
     }
+  
+    
 }

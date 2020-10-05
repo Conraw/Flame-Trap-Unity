@@ -11,9 +11,13 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public GameObject titleScreen;
     public GameObject gameOverScreen;
-    public GameObject instructions;
+    public GameObject instructionsScreen;
+    public GameObject gameWonScreen;
     public GameObject player;
     public GameObject camera;
+
+    public Text timerText;
+    private float startTime;
 
     public bool isGameActive;
     
@@ -22,18 +26,30 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0;
+        startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Timer();
+
         if (player.transform.position.y < -25)
         {
             GameOver();
         }
-    
+        if (player.transform.position.x > 222)
+        {
+            GameWon();
+        }
     }
-  
+    public void Timer()
+    {
+        float t = Time.time - startTime;
+        string seconds = (t).ToString("f2");
+
+        timerText.text = "Timer " + seconds;
+    }
 
     public void GameOver()
     {
@@ -51,19 +67,25 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = true;
         Time.timeScale = 1;
+        timerText.gameObject.SetActive(true);
         titleScreen.gameObject.SetActive(false);
         camera.transform.position = new Vector3(-7.1f, 2.1f, -12);
     }
     public void Instructions()
     {
         titleScreen.gameObject.SetActive(false);
-        instructions.gameObject.SetActive(true);
+        instructionsScreen.gameObject.SetActive(true);
     }
     public void InstructionBack()
     {
         titleScreen.gameObject.SetActive(true);
-        instructions.gameObject.SetActive(false);
+        instructionsScreen.gameObject.SetActive(false);
     }
     
+    public void GameWon()
+    {
+        gameWonScreen.gameObject.SetActive(true);
+        Time.timeScale = 0;
+    }
 
 }

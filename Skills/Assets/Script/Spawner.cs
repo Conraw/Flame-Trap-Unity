@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    private GameManager gameManager;
     public GameObject fireball;
     public float projectileSpeed;
     public GameObject player;
@@ -19,7 +20,7 @@ public class Spawner : MonoBehaviour
     {
         InvokeRepeating("SpawnFireball", startDelay, spawnInterval);
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-       
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -45,7 +46,7 @@ public class Spawner : MonoBehaviour
             spawnPos = new Vector3(Random.Range(90, 150), 24.5f, 60);
             spawnInterval = 1f;
         }
-        else if (playerControllerScript.transform.position.x < 217.2f)
+        else if (playerControllerScript.transform.position.x < 219.2f)
         {
             int randomBreak = Random.Range(174, 198);
             for (int i = 160; i < 211; i++)
@@ -62,6 +63,7 @@ public class Spawner : MonoBehaviour
                 }
             }
         }
+
 
         Instantiate(fireball, spawnPos, transform.rotation);
         Invoke("SpawnFireball", spawnInterval);

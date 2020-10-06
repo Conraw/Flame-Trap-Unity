@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
 
     public Text timerText;
     private float startTime;
-
-    public bool isGameActive;
+    public Text deathText;
+    public static int deathCounter = 0;
+    public bool isGameActive = true;
     
 
     // Start is called before the first frame update
@@ -36,7 +37,9 @@ public class GameManager : MonoBehaviour
 
         if (player.transform.position.y < -25)
         {
-            GameOver();
+            player.transform.position = new Vector3(-85.4f, 4.3f, 58.45f);
+                GameOver();
+            
         }
         if (player.transform.position.x > 222)
         {
@@ -53,9 +56,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        isGameActive = false;
         gameOverScreen.gameObject.SetActive(true);
         Time.timeScale = 0;
-        isGameActive = false;
+        deathCounter++;
+        deathText.text = "Deaths: " + deathCounter;
     }
 
     public void RestartGame()
@@ -65,8 +70,10 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        isGameActive = true;
+        deathText.text = "Deaths: " + deathCounter;
+       
         Time.timeScale = 1;
+        deathText.gameObject.SetActive(true);
         timerText.gameObject.SetActive(true);
         titleScreen.gameObject.SetActive(false);
         camera.transform.position = new Vector3(-7.1f, 2.1f, -12);

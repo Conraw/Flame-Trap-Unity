@@ -15,17 +15,18 @@ public class GameManager : MonoBehaviour
     public GameObject gameWonScreen;
     public GameObject player;
     public GameObject camera;
-
+    public GameObject pauseGameButton;
+    public bool gamePaused = false;
     public Text timerText;
     private float startTime;
     public Text deathText;
     public static int deathCounter = 0;
     public bool isGameActive = true;
-    
-
+    public Slider slider;
+ 
     // Start is called before the first frame update
     void Start()
-    {
+    {    
         Time.timeScale = 0;
         startTime = Time.time;
     }
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Timer();
-
+      
         if (player.transform.position.y < -25)
         {
             player.transform.position = new Vector3(-85.4f, 4.3f, 58.45f);
@@ -45,7 +46,9 @@ public class GameManager : MonoBehaviour
         {
             GameWon();
         }
+        
     }
+
     public void Timer()
     {
         float t = Time.time - startTime;
@@ -70,12 +73,14 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        slider.gameObject.SetActive(false);
         deathText.text = "Deaths: " + deathCounter;
-       
+        isGameActive = true;
         Time.timeScale = 1;
         deathText.gameObject.SetActive(true);
         timerText.gameObject.SetActive(true);
         titleScreen.gameObject.SetActive(false);
+        pauseGameButton.gameObject.SetActive(true);
         camera.transform.position = new Vector3(-7.1f, 2.1f, -12);
     }
     public void Instructions()
@@ -93,6 +98,22 @@ public class GameManager : MonoBehaviour
     {
         gameWonScreen.gameObject.SetActive(true);
         Time.timeScale = 0;
+    }
+    public void PauseGame()
+    {
+        if (isGameActive)
+        {
+            if (gamePaused)
+            {
+                Time.timeScale = 1;
+                gamePaused = false;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                gamePaused = true;
+            }
+        }
     }
 
 }
